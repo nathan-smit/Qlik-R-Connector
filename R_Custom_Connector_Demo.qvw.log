@@ -1,0 +1,305 @@
+﻿2018-02-16 12:37:57      Execution started.
+2018-02-16 12:37:57      QlikView Desktop Version      12.10.20200+2017-03-24 11:02:41.HEAD.Component.Version
+2018-02-16 12:37:57      CPU Target                    x64
+2018-02-16 12:37:57      Operating System              Windows 7 Professional Service Pack 1 (64 bit edition)
+2018-02-16 12:37:57      Wow64 mode                    Not using Wow64
+2018-02-16 12:37:57      Language                      1c09 English (South Africa) English
+2018-02-16 12:37:57      Country                       27 South Africa South Africa
+2018-02-16 12:37:57      MDAC Version                  6.1.7601.17514
+2018-02-16 12:37:57      MDAC Full Install Version     6.1.7601.17514
+2018-02-16 12:37:57      PreferredCompression          2
+2018-02-16 12:37:57      EnableParallelReload          1
+2018-02-16 12:37:57      ParallelizeQvdLoads           1
+2018-02-16 12:37:57      AutoSaveAfterReload           0
+2018-02-16 12:37:57      BackupBeforeReload            0
+2018-02-16 12:37:57      EnableFlushLog                0
+2018-02-16 12:37:57      SaveInfoWhenSavingFile        0
+2018-02-16 12:37:57      UserLogfileCharset            65001
+2018-02-16 12:37:57      OdbcLoginTimeout              -1
+2018-02-16 12:37:57      OdbcConnectionTimeout         -1
+2018-02-16 12:37:57      LongestPossibleLine           1048576
+2018-02-16 12:37:57      MaxCoreMask                   -1
+2018-02-16 12:37:57      ScriptWantsDbWrite            false
+2018-02-16 12:37:57      ScriptWantsExe                false
+2018-02-16 12:37:57      LogFile CodePage Used:        65001
+2018-02-16 12:37:57      UseMemoryFillPattern          1
+2018-02-16 12:37:57      ScriptMode                    Legacy (gives greater system access) (aka qv11 mode)
+2018-02-16 12:37:57      SequentialThreadCount         197
+2018-02-16 12:37:57      NumberOfCores (effective)     4
+2018-02-16 12:37:57      ReloadCodebase                Classic
+2018-02-16 12:37:58      Reload Executed By            PEPSTORES\nathans
+2018-02-16 12:37:58      Process Executing             QlikView Desktop
+2018-02-16 12:37:58      Process ID                    4048
+2018-02-16 12:37:58 0002 SET ThousandSep=' '
+2018-02-16 12:37:58 0003 SET DecimalSep='.'
+2018-02-16 12:37:58 0004 SET MoneyThousandSep=' '
+2018-02-16 12:37:58 0005 SET MoneyDecimalSep=','
+2018-02-16 12:37:58 0006 SET MoneyFormat='R # ##0,00;R-# ##0,00'
+2018-02-16 12:37:58 0007 SET TimeFormat='hh:mm:ss TT'
+2018-02-16 12:37:58 0008 SET DateFormat='YYYY/MM/DD'
+2018-02-16 12:37:58 0009 SET TimestampFormat='YYYY/MM/DD hh:mm:ss[.fff] TT'
+2018-02-16 12:37:58 0010 SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec'
+2018-02-16 12:37:58 0011 SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun'
+2018-02-16 12:37:58 0013 let QvWorkPath=Replace(Mid(DocumentPath(), 1, FindOneOf(DocumentPath(), '\', -1)),'\','/')&'/'
+2018-02-16 12:37:58 0016 ORIGINALDATA:
+2018-02-16 12:37:58 0017 LOAD SK_Pos_Trn_No, 
+2018-02-16 12:37:58 0018      Replace(Replace(Replace(Replace(Replace(Pcls,' ','_'),'/','_'),'-','_'),'+','_'),'__','_') as Pcls
+2018-02-16 12:37:58 0019 FROM
+2018-02-16 12:37:58 0020 [Basket_Data_Raw.csv]
+2018-02-16 12:37:58 0021 (txt, utf8, embedded labels, delimiter is ',', msq, no eof)
+2018-02-16 12:37:58 0022 WHERE SK_Pos_Trn_No <> 268688965
+2018-02-16 12:37:58      	2 fields found: SK_Pos_Trn_No, Pcls, 
+2018-02-16 12:37:58      167 638 lines fetched
+2018-02-16 12:37:58 0024 store * from ORIGINALDATA into Basket_Data.csv (txt)
+2018-02-16 12:37:58 0025 drop table ORIGINALDATA
+2018-02-16 12:37:58 0027 CUSTOM CONNECT TO ***
+2018-02-16 12:37:59 0029 RULES:
+2018-02-16 12:37:59 0030 LOAD evaluate(confidence) as confidence,
+2018-02-16 12:37:59 0031     lhs,
+2018-02-16 12:37:59 0032     if(WildMatch(lhs,'*,*')>0,0,1) as "Single Instance",
+2018-02-16 12:37:59 0033     evaluate(lift) as lift,
+2018-02-16 12:37:59 0034     rhs,
+2018-02-16 12:37:59 0035     Replace(Replace(rhs,'}',''),'{','') as PclsLink,
+2018-02-16 12:37:59 0036     evaluate(support) as support
+2018-02-16 12:37:59 0037 SQL SELECT confidence,
+2018-02-16 12:37:59 0038     lhs,
+2018-02-16 12:37:59 0039     lift,
+2018-02-16 12:37:59 0040     rhs,
+2018-02-16 12:37:59 0041     support
+2018-02-16 12:37:59 0042 FROM BasketRules
+2018-02-16 12:38:59      	7 fields found: confidence, lhs, Single Instance, lift, rhs, PclsLink, support, 
+2018-02-16 12:38:59      8 320 lines fetched
+2018-02-16 12:38:59 0047 SALES:
+2018-02-16 12:38:59 0048 LOAD Replace(Replace(Replace(Replace(Replace(Pcls,' ','_'),'/','_'),'-','_'),'+','_'),'__','_') as PclsLink, 
+2018-02-16 12:38:59 0049      Sales
+2018-02-16 12:38:59 0050 FROM
+2018-02-16 12:38:59 0051 [Test123.csv]
+2018-02-16 12:38:59 0052 (txt, utf8, embedded labels, delimiter is ',', msq)
+2018-02-16 12:38:59      	2 fields found: PclsLink, Sales, 
+2018-02-16 12:38:59      314 lines fetched
+2018-02-16 12:38:59 0056 TEAMDATA:
+2018-02-16 12:38:59 0057 LOAD * INLINE [
+2018-02-16 12:38:59 0058     Player, Height, Weight, FG%, FT%, Team
+2018-02-16 12:38:59 0059     Kelly Tripucka, 6.6, 220, 0.473, 0.8486, Team1
+2018-02-16 12:38:59 0060     Dave Gambee, 6.6, 215, 0.42, 0.8223, Team1
+2018-02-16 12:38:59 0061     Earl Monroe, 6.3, 185, 0.464, 0.807, Team1
+2018-02-16 12:38:59 0062     Chet Walker, 6.6, 212, 0.47, 0.7956, Team1
+2018-02-16 12:38:59 0063     Deron Williams, 6.3, 200, 0.445, 0.8216, Team1
+2018-02-16 12:38:59 0064     Calvin Murphy, 5.9, 165, 0.482, 0.8916, Team2
+2018-02-16 12:38:59 0065     Jo Jo White, 6.3, 190, 0.444, 0.8337, Team2
+2018-02-16 12:38:59 0066     Allan Houston, 6.6, 200, 0.444, 0.8634, Team2
+2018-02-16 12:38:59 0067     Cazzie Russell, 6.5, 218, 0.464, 0.8268, Team2
+2018-02-16 12:38:59 0068     Vince Carter, 6.6, 220, 0.439, 0.7993, Team2
+2018-02-16 12:38:59 0069 ]
+2018-02-16 12:38:59      	6 fields found: Player, Height, Weight, FG%, FT%, Team, 
+2018-02-16 12:38:59      10 lines fetched
+2018-02-16 12:38:59 0071 CUSTOM CONNECT TO ***
+2018-02-16 12:39:01 0075 BasketballData:
+2018-02-16 12:39:01 0076 LOAD evaluate(ReturnedCoefficients) as ReturnedBasketballCoefficients,
+2018-02-16 12:39:01 0077 	 RowNo() as BID
+2018-02-16 12:39:01 0078 SQL SELECT *
+2018-02-16 12:39:01 0079 FROM MultipleRegression
+2018-02-16 12:39:01      	2 fields found: ReturnedBasketballCoefficients, BID, 
+2018-02-16 12:39:01      5 lines fetched
+2018-02-16 12:39:01 0082 for i = 0 to NoOfRows('BasketballData')
+2018-02-16 12:39:01 0083 
+  2018-02-16 12:39:01 0083 LET vCoefficient0 = FieldValue('ReturnedBasketballCoefficients',0+1)
+2018-02-16 12:39:01 0084 NEXT i 
+2018-02-16 12:39:01 0085 
+  2018-02-16 12:39:01 0083 LET vCoefficient1 = FieldValue('ReturnedBasketballCoefficients',1+1)
+2018-02-16 12:39:01 0084 NEXT i 
+2018-02-16 12:39:01 0085 
+  2018-02-16 12:39:01 0083 LET vCoefficient2 = FieldValue('ReturnedBasketballCoefficients',2+1)
+2018-02-16 12:39:01 0084 NEXT i 
+2018-02-16 12:39:01 0085 
+  2018-02-16 12:39:01 0083 LET vCoefficient3 = FieldValue('ReturnedBasketballCoefficients',3+1)
+2018-02-16 12:39:01 0084 NEXT i 
+2018-02-16 12:39:01 0085 
+  2018-02-16 12:39:01 0083 LET vCoefficient4 = FieldValue('ReturnedBasketballCoefficients',4+1)
+2018-02-16 12:39:01 0084 NEXT i 
+2018-02-16 12:39:01 0085 
+  2018-02-16 12:39:01 0083 LET vCoefficient5 = FieldValue('ReturnedBasketballCoefficients',5+1)
+2018-02-16 12:39:01 0084 NEXT i 
+2018-02-16 12:39:01 0085 
+2018-02-16 12:39:01 0086 ScoringData:
+2018-02-16 12:39:01 0087 LOAD * ,
+2018-02-16 12:39:01 0088 	4.14870670628906 + (-3.6904990833613*Height) + (0.00945845788151721*Weight) + (47.9401991647774*FG%)+ (47.9401991647774*FT%) as PredictedAvgScore
+2018-02-16 12:39:01 0089 Resident TEAMDATA
+2018-02-16 12:39:01      	7 fields found: Player, Height, Weight, FG%, FT%, Team, PredictedAvgScore, 
+2018-02-16 12:39:01      10 lines fetched
+2018-02-16 12:39:01 0090 drop table TEAMDATA
+2018-02-16 12:39:01 0092 LEFT JOIN(BasketballData)
+2018-02-16 12:39:01 0093 LOAD * INLINE [
+2018-02-16 12:39:01 0094     BID, Desc
+2018-02-16 12:39:01 0095     2, Height
+2018-02-16 12:39:01 0096     3, Weight
+2018-02-16 12:39:01 0097     4, Field Goal Percentage
+2018-02-16 12:39:01 0098     5, Percentage Free Throws
+2018-02-16 12:39:01 0099 ]
+2018-02-16 12:39:01      	2 fields found: BID, Desc, 
+2018-02-16 12:39:01      4 lines fetched
+2018-02-16 12:39:01      Joining/Keeping
+2018-02-16 12:39:01 0101 Data:
+2018-02-16 12:39:01 0102 LEFT JOIN(ScoringData)
+2018-02-16 12:39:01 0103 LOAD 
+2018-02-16 12:39:01 0104 Team,
+2018-02-16 12:39:01 0105 Max(PredictedAvgScore) as PredictedAvgScore,
+2018-02-16 12:39:01 0106 1 as MVPTEAMIND
+2018-02-16 12:39:01 0107 Resident ScoringData
+2018-02-16 12:39:01 0108 group by Team
+2018-02-16 12:39:01      	3 fields found: Team, PredictedAvgScore, MVPTEAMIND, 
+2018-02-16 12:39:01      2 lines fetched
+2018-02-16 12:39:01      Joining/Keeping
+2018-02-16 12:39:01 0110 Data:
+2018-02-16 12:39:01 0111 LEFT JOIN(ScoringData)
+2018-02-16 12:39:01 0112 LOAD 
+2018-02-16 12:39:01 0113 Max(PredictedAvgScore) as PredictedAvgScore,
+2018-02-16 12:39:01 0114 1 as MVPIND
+2018-02-16 12:39:01 0115 Resident ScoringData
+2018-02-16 12:39:01      	2 fields found: PredictedAvgScore, MVPIND, 
+2018-02-16 12:39:01      1 lines fetched
+2018-02-16 12:39:01      Joining/Keeping
+2018-02-16 12:39:01 0117 MVPTEAM:
+2018-02-16 12:39:01 0118 LOAD Player as MVP
+2018-02-16 12:39:01 0119 Resident ScoringData
+2018-02-16 12:39:01 0120 where MVPTEAMIND=1
+2018-02-16 12:39:01      	1 fields found: MVP, 
+2018-02-16 12:39:01      2 lines fetched
+2018-02-16 12:39:01 0122 MVPTEAM:
+2018-02-16 12:39:01 0123 LOAD Player as OverallMVP
+2018-02-16 12:39:01 0124 Resident ScoringData
+2018-02-16 12:39:01 0125 where MVPIND=1
+2018-02-16 12:39:01      	1 fields found: OverallMVP, 
+2018-02-16 12:39:01      1 lines fetched
+2018-02-16 12:39:01 0127 LET vTeam1MVP = FieldValue('MVP',1)
+2018-02-16 12:39:01 0128 LET vTeam2MVP = FieldValue('MVP',2)
+2018-02-16 12:39:01 0129 LET vMVP 	  = FieldValue('OverallMVP',1)
+2018-02-16 12:39:01 0132 CUSTOM CONNECT TO ***
+2018-02-16 12:39:03 0134 InsuranceData:
+2018-02-16 12:39:03 0135 LOAD evaluate(ReturnedCoefficients) as ReturnedInsuranceCoefficients,
+2018-02-16 12:39:03 0136 	 RowNo()-1 as Position
+2018-02-16 12:39:03 0137 SQL SELECT *
+2018-02-16 12:39:03 0138 FROM MultipleRegression
+2018-02-16 12:39:04      	2 fields found: ReturnedInsuranceCoefficients, Position, 
+2018-02-16 12:39:04      52 lines fetched
+2018-02-16 12:39:04 0140 LET vIntercept = FieldValue('ReturnedInsuranceCoefficients',1)
+2018-02-16 12:39:04 0142 TempCrossTable:
+2018-02-16 12:39:04 0143 CrossTable(Position,Factor)
+2018-02-16 12:39:04 0144 LOAD RowNo() as Row,
+2018-02-16 12:39:04 0145 	*
+2018-02-16 12:39:04 0146 FROM
+2018-02-16 12:39:04 0147 [Model_Regression.xlsx]
+2018-02-16 12:39:04 0148 (ooxml, no labels, table is [Data transformed for R], filters(
+2018-02-16 12:39:04 0149 Remove(Row, Pos(Top, 1))
+2018-02-16 12:39:04 0150 ))
+2018-02-16 12:39:04 0151 WHERE RecNo() = 1
+2018-02-16 12:39:05      	53 fields found: Row, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19, @20, @21, @22, @23, @24, @25, @26, @27, @28, @29, @30, @31, @32, @33, @34, @35, @36, @37, @38, @39, @40, @41, @42, @43, @44, @45, @46, @47, @48, @49, @50, @51, @52, 	3 fields found: Row, Position, Factor, 
+2018-02-16 12:39:05      52 lines fetched
+2018-02-16 12:39:05      1 lines fetched
+2018-02-16 12:39:05 0153 FactorList:
+2018-02-16 12:39:05 0154 LEFT JOIN(InsuranceData)
+2018-02-16 12:39:05 0155 LOAD replace(Position,'@','') as Position,
+2018-02-16 12:39:05 0156 	 Factor
+2018-02-16 12:39:05 0157 Resident TempCrossTable
+2018-02-16 12:39:05      	2 fields found: Position, Factor, 
+2018-02-16 12:39:05      52 lines fetched
+2018-02-16 12:39:05      Joining/Keeping
+2018-02-16 12:39:05 0158 drop table TempCrossTable
+2018-02-16 12:39:05 0160 PricingTable:
+2018-02-16 12:39:05 0161 MAPPING LOAD Factor,
+2018-02-16 12:39:05 0162 ReturnedInsuranceCoefficients
+2018-02-16 12:39:05 0163 Resident InsuranceData
+2018-02-16 12:39:05      	2 fields found: Factor, ReturnedInsuranceCoefficients, 
+2018-02-16 12:39:05      52 lines fetched
+2018-02-16 12:39:05 0166 GetFactorCategories:
+2018-02-16 12:39:05 0167 CrossTable(FactorCat,Factor,1)
+2018-02-16 12:39:05 0168 LOAD ID,
+2018-02-16 12:39:05 0169 	 [Marital Status], 
+2018-02-16 12:39:05 0170      Gender, 
+2018-02-16 12:39:05 0171      [Undercover Parking], 
+2018-02-16 12:39:05 0172      NCB, 
+2018-02-16 12:39:05 0173 	 [Age Category], 
+2018-02-16 12:39:05 0174      [Licence Age Category], 
+2018-02-16 12:39:05 0175      [Sum Insured Category], 
+2018-02-16 12:39:05 0176      Prov_Name, 
+2018-02-16 12:39:05 0177      Make
+2018-02-16 12:39:05 0178 FROM
+2018-02-16 12:39:05 0179 [Model_Regression.xlsx]
+2018-02-16 12:39:05 0180 (ooxml, embedded labels, table is [Original Data])
+2018-02-16 12:39:05      	10 fields found: ID, Marital Status, Gender, Undercover Parking, NCB, Age Category, Licence Age Category, Sum Insured Category, Prov_Name, Make, 	3 fields found: ID, FactorCat, Factor, 
+2018-02-16 12:39:05      26 406 lines fetched
+2018-02-16 12:39:05      2 934 lines fetched
+2018-02-16 12:39:05 0182 JOIN(InsuranceData)
+2018-02-16 12:39:05 0183 LOAD distinct FactorCat,
+2018-02-16 12:39:05 0184 	 Factor
+2018-02-16 12:39:05 0185 Resident GetFactorCategories
+2018-02-16 12:39:05      	2 fields found: FactorCat, Factor, 
+2018-02-16 12:39:05      60 lines fetched
+2018-02-16 12:39:05      Joining/Keeping
+2018-02-16 12:39:05 0186 drop table GetFactorCategories
+2018-02-16 12:39:05 0188 NoConcatenate
+2018-02-16 12:39:05 0189 TempInsuranceData:
+2018-02-16 12:39:05 0190 LOAD Position,
+2018-02-16 12:39:05 0191 	 Factor,
+2018-02-16 12:39:05 0192 	 FactorCat,
+2018-02-16 12:39:05 0193 	 if(trim(len(ReturnedInsuranceCoefficients))=0,0,Evaluate(ReturnedInsuranceCoefficients)) as ReturnedInsuranceCoefficients
+2018-02-16 12:39:05 0194 Resident InsuranceData
+2018-02-16 12:39:05      	4 fields found: Position, Factor, FactorCat, ReturnedInsuranceCoefficients, 
+2018-02-16 12:39:05      61 lines fetched
+2018-02-16 12:39:05 0195 drop table InsuranceData
+2018-02-16 12:39:05 0196 rename table TempInsuranceData to InsuranceData
+2018-02-16 12:39:05 0198 OriginalData:
+2018-02-16 12:39:05 0199 LOAD ID, 
+2018-02-16 12:39:05 0200      Age, 
+2018-02-16 12:39:05 0201      LicenseAge, 
+2018-02-16 12:39:05 0202      Suburb, 
+2018-02-16 12:39:05 0203      [Marital Status], 
+2018-02-16 12:39:05 0204      Gender, 
+2018-02-16 12:39:05 0205      [Undercover Parking], 
+2018-02-16 12:39:05 0206      NCB, 
+2018-02-16 12:39:05 0207      MakeYear, 
+2018-02-16 12:39:05 0208      mmcode, 
+2018-02-16 12:39:05 0209      Value, 
+2018-02-16 12:39:05 0210      Make, 
+2018-02-16 12:39:05 0211      [Age Category], 
+2018-02-16 12:39:05 0212      [Licence Age Category], 
+2018-02-16 12:39:05 0213      [Sum Insured Category], 
+2018-02-16 12:39:05 0214      Prov_Name, 
+2018-02-16 12:39:05 0215      Premium,
+2018-02-16 12:39:05 0216      
+2018-02-16 12:39:05 0217      Evaluate(517.674030314581) +					  
+2018-02-16 12:39:05 0218      evaluate(ApplyMap('PricingTable',Gender,0))+ 
+2018-02-16 12:39:05 0219      evaluate(ApplyMap('PricingTable',[Marital Status],0))+ 
+2018-02-16 12:39:05 0220      evaluate(ApplyMap('PricingTable',[Undercover Parking],0))+ 
+2018-02-16 12:39:05 0221      evaluate(ApplyMap('PricingTable',NCB,0))+ 
+2018-02-16 12:39:05 0222      evaluate(ApplyMap('PricingTable',Make,0))+ 
+2018-02-16 12:39:05 0223      evaluate(ApplyMap('PricingTable',[Age Category],0))+ 
+2018-02-16 12:39:05 0224      evaluate(ApplyMap('PricingTable',[Licence Age Category],0))+ 
+2018-02-16 12:39:05 0225      evaluate(ApplyMap('PricingTable',[Sum Insured Category],0))+ 
+2018-02-16 12:39:05 0226      evaluate(ApplyMap('PricingTable',Prov_Name,0)) as FittedPremium 
+2018-02-16 12:39:05 0227      
+2018-02-16 12:39:05 0228 FROM
+2018-02-16 12:39:05 0229 [Model_Regression.xlsx]
+2018-02-16 12:39:05 0230 (ooxml, embedded labels, table is [Original Data])
+2018-02-16 12:39:05      	18 fields found: ID, Age, LicenseAge, Suburb, Marital Status, Gender, Undercover Parking, NCB, MakeYear, mmcode, Value, Make, Age Category, Licence Age Category, Sum Insured Category, Prov_Name, Premium, FittedPremium, 
+2018-02-16 12:39:05      2 934 lines fetched
+2018-02-16 12:39:05 0234 Menu:
+2018-02-16 12:39:05 0235 LOAD * INLINE [
+2018-02-16 12:39:05 0236     R Type, Example
+2018-02-16 12:39:05 0237     Multiple Regression, Basketball
+2018-02-16 12:39:05 0238     Multiple Regression, Insurance
+2018-02-16 12:39:05 0239     Basket Analysis, Retail
+2018-02-16 12:39:05 0240 ]
+2018-02-16 12:39:05      	2 fields found: R Type, Example, 
+2018-02-16 12:39:05      3 lines fetched
+2018-02-16 12:39:05 0242 Menu2:
+2018-02-16 12:39:05 0243 LOAD * INLINE [
+2018-02-16 12:39:05 0244     Qlik Type, Qlik Example
+2018-02-16 12:39:05 0245     How To, Install Connector
+2018-02-16 12:39:05 0246     How To, Create Connection
+2018-02-16 12:39:05 0247     How To, Multiple Regression
+2018-02-16 12:39:05 0248     How To, Basket Analysis
+2018-02-16 12:39:05 0249 ]
+2018-02-16 12:39:05      	2 fields found: Qlik Type, Qlik Example, 
+2018-02-16 12:39:05      4 lines fetched
+2018-02-16 12:39:06      Execution finished.
